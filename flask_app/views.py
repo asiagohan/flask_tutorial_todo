@@ -5,11 +5,7 @@ from flask_app import app, db
 from .forms import TodoForm
 from .models import Todo
 
-@app.route('/')
-def hello_world():
-    return "Hello World!"
-
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def register():
     form = TodoForm()
     if request.method == 'POST' and form.validate():
@@ -22,7 +18,7 @@ def register():
         return redirect(url_for('register'))
 
     todo_list = Todo.query.order_by(Todo.timestamp.desc())
-    return render_template('register.html',
+    return render_template('index.html',
                            form=form,
                            todo_list=todo_list)
 
